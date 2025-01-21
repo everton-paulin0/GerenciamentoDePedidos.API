@@ -1,10 +1,13 @@
-using GerenciamentoDePedidos.API;
+using GerenciamentoDePedidos.API.Model;
+using GerenciamentoDePedidos.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.Configure<OrderTotalCostConfig>(builder.Configuration.GetSection("OrderTotalCostConfig"));
+
+builder.Services.AddSingleton<IConfigService, ConfigService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

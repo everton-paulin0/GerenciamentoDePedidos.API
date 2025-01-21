@@ -2,10 +2,20 @@
 {
     public class User
     {
+        public User(string userName, string emailAddress, long docNumber, int idOrder, int idDescription, bool isActive):base()
+        {
+            UserName = userName;
+            EmailAddress = emailAddress;
+            DocNumber = docNumber;
+            IdOrder = idOrder;
+            IdDescription = idDescription;
+            IsActive = isActive;
+        }
+
         public string UserName { get; set; }
         public string EmailAddress { get; set; }
         public long DocNumber { get; set; }
-        public int IdOrder { get; set; }
+        public int IdOrder { get; set; }        
         public int IdDescription { get; set; }
         public bool IsActive { get; set; }
     }

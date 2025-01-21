@@ -1,4 +1,5 @@
 ﻿using GerenciamentoDePedidos.API.Model;
+using GerenciamentoDePedidos.API.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -10,10 +11,13 @@ namespace GerenciamentoDePedidos.API.Controllers
     public class OrderController : ControllerBase
     {
         private readonly OrderTotalCostConfig _config;
-        public OrderController(IOptions<OrderTotalCostConfig> options)
+        private readonly IConfigService _configService;
+        public OrderController(IOptions<OrderTotalCostConfig> options, IConfigService configService)
         {
             //Options para limitar o valores total do pedido
             _config = options.Value;
+            _configService = configService;
+            
 
         }
         [HttpPost]
@@ -28,7 +32,7 @@ namespace GerenciamentoDePedidos.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get(string search)
+        public IActionResult Get(string search = "")
         {
             return Ok();
         }

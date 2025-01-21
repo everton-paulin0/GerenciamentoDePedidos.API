@@ -5,6 +5,8 @@
         Started = 0,
         Canceled = 1,
         Fronzen = 2,
-        Finished = 3
+        Finished = 3,
+        PaymentePending = 4
+
     }
 }

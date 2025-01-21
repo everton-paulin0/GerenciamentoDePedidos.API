@@ -10,6 +10,10 @@
             IdOrder = idOrder;
             IdDescription = idDescription;
             IsActive = isActive;
+
+            OwnedOrders = [];
+            SellerOrders = [];
+            Comments = [];
         }
 
         public string UserName { get; set; }
@@ -18,5 +22,8 @@
         public int IdOrder { get; set; }        
         public int IdDescription { get; set; }
         public bool IsActive { get; set; }
+        public List<Order>  OwnedOrders{ get; set; }
+        public List<Order> SellerOrders { get; set; }
+        public List<Description> Comments { get; set; }
     }
 }

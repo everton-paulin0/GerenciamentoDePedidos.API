@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using GerenciamentoDePedidos.API.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciamentoDePedidos.API.Controllers
@@ -8,7 +9,7 @@ namespace GerenciamentoDePedidos.API.Controllers
     public class UserController : ControllerBase
     {
         [HttpPost]
-        public IActionResult Post()
+        public IActionResult Post(CreateUserInputModel model)
         {
             return Ok();
         }

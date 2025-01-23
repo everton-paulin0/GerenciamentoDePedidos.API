@@ -1,6 +1,6 @@
 ﻿namespace GerenciamentoDePedidos.API.Entities
 {
-    public class Description
+    public class Description: BaseEntities
     {
         public Description(string content, int idOrder, int idUser)
         {

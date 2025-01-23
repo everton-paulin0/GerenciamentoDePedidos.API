@@ -1,13 +1,16 @@
 using GerenciamentoDePedidos.API.Model;
+using GerenciamentoDePedidos.API.Persistence;
 using GerenciamentoDePedidos.API.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.Configure<OrderTotalCostConfig>(builder.Configuration.GetSection("OrderTotalCostConfig"));
 
 builder.Services.AddSingleton<IConfigService, ConfigService>();
+
+builder.Services.AddDbContext<GerenciamentoDbContext>(o => o.UseInMemoryDatabase("GerenciadorDb"));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

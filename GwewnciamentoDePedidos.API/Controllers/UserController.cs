@@ -1,5 +1,4 @@
 ﻿using GerenciamentoDePedidos.API.Model;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciamentoDePedidos.API.Controllers

@@ -3,8 +3,12 @@ using GerenciamentoDePedidos.API.Enum;
 
 namespace GerenciamentoDePedidos.API.Entities
 {
-    public class Order
+    public class Order:BaseEntities
     {
+        public Order()
+        {
+            
+        }
         public Order(string product, int quantity, int idClient, int idUser,  double price, double totalCost, OrderStatus status, List<Description> comments):base()
         {
             Product = product;
@@ -19,13 +23,12 @@ namespace GerenciamentoDePedidos.API.Entities
 
         public string Product { get; set; }
         public int Quantity { get; set; }
-        public int IdClient { get; set; }
+        public int IdClient { get; set; }        
         public User Client { get; set; }
         public int IdUser { get; set; }
-        public User User { get; set; }
+        public User UserName { get; set; }
         public double Price { get; set; }
-        public double TotalCost { get; set; }
-        
+        public double TotalCost { get; set; }        
         public OrderStatus Status { get; set; }
         public List<Description> Comments { get; set; }
 

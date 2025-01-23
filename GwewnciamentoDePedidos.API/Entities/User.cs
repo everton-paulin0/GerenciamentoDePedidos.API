@@ -1,6 +1,6 @@
 ﻿namespace GerenciamentoDePedidos.API.Entities
 {
-    public class User
+    public class User: BaseEntities
     {
         public User(string userName, string emailAddress, long docNumber, int idOrder, int idDescription, bool isActive):base()
         {

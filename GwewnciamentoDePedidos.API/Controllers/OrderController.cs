@@ -1,5 +1,6 @@
-﻿using GerenciamentoDePedidos.API.Model;
-using GerenciamentoDePedidos.API.Persistence;
+﻿using GerenciamentoDePedidos.Application.Model;
+using GerenciamentoDePedidos.Core.Entities;
+using GerenciamentoDePedidos.Infrastruture.Persistence;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -17,7 +18,7 @@ namespace GerenciamentoDePedidos.API.Controllers
         [HttpPost]
         public IActionResult Post(CreateOrderInputModel model)
         {
-           var order = model.ToEntityOrder(model.Product, model.Quantity, model.Price , model.TotalCost);
+           var order = model.ToEntityOrder();
 
             _context.Orders.Add(order);
             _context.SaveChanges();
@@ -28,7 +29,8 @@ namespace GerenciamentoDePedidos.API.Controllers
         [HttpGet]
         public IActionResult Get(string search = "")
         {
-            var orders = _context.Orders.Where(o => !o.IsDeleted).ToList();
+            var orders = _context.Orders.Where(o => !o.IsDeleted && (search == "" || o.Product.Contains(search)))
+            .ToList();
 
             var model = orders.Select(OrderViewModel.FromEntityOrder).ToList();
             
@@ -40,6 +42,11 @@ namespace GerenciamentoDePedidos.API.Controllers
         public IActionResult GetById(int id)
         {
             var order = _context.Orders.SingleOrDefault(p => p.Id == id);
+
+            if (order is null)
+            {
+                return NotFound();
+            }
 
             var model = OrderViewModel.FromEntityOrder(order);
 
@@ -55,18 +62,47 @@ namespace GerenciamentoDePedidos.API.Controllers
             {
                 return NotFound();
             }
-            return Ok();
+
+            order.Update(model.Product,model.Quantity, model.Price, model.TotalCost);
+
+            _context.Orders.Update(order);
+            _context.SaveChanges();
+
+            return NoContent();
         }
 
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            return Ok();
+            var order = _context.Orders.SingleOrDefault(p => p.Id == id);
+
+            if (order is null)
+            {
+                return NotFound();
+            }
+
+            order.SetAsDeleted();
+            _context.Orders.Update(order);
+            _context.SaveChanges(); 
+
+            return NoContent();
         }
 
         [HttpPost("{id}/description")]
         public IActionResult PostDescription (int id, CreateDescriptionInputModel model)
         {
+            var order = _context.Orders.SingleOrDefault(p => p.Id == id);
+
+            if (order is null)
+            {
+                return NotFound();
+            }
+
+            var comment = new Description(model.Content, model.IdOrder, model.IdUser);
+
+            _context.Descriptions.Add(comment);
+            _context.SaveChanges();
+
             return Ok();
         }
     }

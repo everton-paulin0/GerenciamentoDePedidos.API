@@ -1,6 +1,6 @@
-﻿using GerenciamentoDePedidos.API.Entities;
+﻿using GerenciamentoDePedidos.Core.Entities;
 
-namespace GerenciamentoDePedidos.API.Model
+namespace GerenciamentoDePedidos.Application.Model
 {
     public class OrderViewModel
     {

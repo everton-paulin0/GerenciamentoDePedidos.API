@@ -1,4 +1,4 @@
-﻿namespace GerenciamentoDePedidos.API.Entities
+﻿namespace GerenciamentoDePedidos.Core.Entities
 {
     public class Description: BaseEntities
     {

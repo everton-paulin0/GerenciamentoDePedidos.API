@@ -1,7 +1,8 @@
-﻿using GerenciamentoDePedidos.API.Entities;
-using GerenciamentoDePedidos.API.Enum;
+﻿
 
-namespace GerenciamentoDePedidos.API.Model
+using GerenciamentoDePedidos.Core.Entities;
+
+namespace GerenciamentoDePedidos.Application.Model
 {
     public class CreateOrderInputModel
     {
@@ -11,13 +12,9 @@ namespace GerenciamentoDePedidos.API.Model
         public int IdUser { get; set; }
         public double Price { get; set; }
         public double TotalCost { get; set; }
-        
 
-
-
-
-        public static Order ToEntityOrder()
-            => new Order ();
+        public Order ToEntityOrder()
+            => new Order (Product, Quantity, IdClient, IdUser, Price, TotalCost);
                 
     }
 }

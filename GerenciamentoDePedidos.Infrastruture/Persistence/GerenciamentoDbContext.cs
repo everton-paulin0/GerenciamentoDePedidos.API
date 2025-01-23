@@ -1,7 +1,7 @@
-﻿using GerenciamentoDePedidos.API.Entities;
+﻿using GerenciamentoDePedidos.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace GerenciamentoDePedidos.API.Persistence
+namespace GerenciamentoDePedidos.Infrastruture.Persistence
 {
     public class GerenciamentoDbContext : DbContext
     {
@@ -42,10 +42,12 @@ namespace GerenciamentoDePedidos.API.Persistence
                 {
                     e.HasKey(o => o.Id);
 
+                    /*
                     e.HasOne(o => o.Client)
                     .WithMany(o => o.OwnedOrders)
                      .HasForeignKey(o => o.IdClient)
                      .OnDelete(DeleteBehavior.Restrict);
+                    */
 
                     e.HasOne(o => o.UserName)
                     .WithMany(o => o.SellerOrders)

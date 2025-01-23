@@ -1,4 +1,4 @@
-﻿namespace GerenciamentoDePedidos.API.Model
+﻿namespace GerenciamentoDePedidos.Application.Model
 {
     public class UpdateUserInputModel
     {

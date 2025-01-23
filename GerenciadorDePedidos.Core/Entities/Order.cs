@@ -1,7 +1,7 @@
 ﻿using System.Net.Sockets;
-using GerenciamentoDePedidos.API.Enum;
+using GerenciamentoDePedidos.Core.Enum;
 
-namespace GerenciamentoDePedidos.API.Entities
+namespace GerenciamentoDePedidos.Core.Entities
 {
     public class Order:BaseEntities
     {
@@ -9,7 +9,7 @@ namespace GerenciamentoDePedidos.API.Entities
         {
             
         }
-        public Order(string product, int quantity, int idClient, int idUser,  double price, double totalCost, OrderStatus status, List<Description> comments):base()
+        public Order(string product, int quantity, int idClient, int idUser,  double price, double totalCost):base()
         {
             Product = product;
             Quantity = quantity;
@@ -32,12 +32,13 @@ namespace GerenciamentoDePedidos.API.Entities
         public OrderStatus Status { get; set; }
         public List<Description> Comments { get; set; }
 
-        public void Update(string product, int quantity, double price, double totalCost , string status)
+        public void Update(string product, int quantity, double price, double totalCost)
         {
             Product = product;
             Quantity = quantity;
             Price = price;
-            TotalCost = totalCost;
+            TotalCost = totalCost;            
+            UpdatedAt = DateTime.Now;
         }
     }
 }

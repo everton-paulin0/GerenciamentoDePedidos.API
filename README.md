@@ -11,8 +11,7 @@ o Valor total do pedido (calculado com base nos itens).
 
 Requisitos Técnicos:
 1. Utilize .NET 6 ou superior.
-2. Armazene os dados em memória (usando uma lista) ou em um banco de dados
-local (SQLite, por exemplo).
+2. Armazene os dados em memória (usando uma lista).
 3. Exponha uma API REST com os seguintes endpoints:
 o POST /orders: Criar um pedido.
 o GET /orders: Listar todos os pedidos.

@@ -1,4 +1,5 @@
-﻿using System.Net.Mail;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Net.Mail;
 
 namespace GerenciamentoDePedidos.Core.Entities
 {
@@ -24,11 +25,16 @@ namespace GerenciamentoDePedidos.Core.Entities
         public string UserName { get; set; }
         public string EmailAddress { get; set; }
         public long DocNumber { get; set; }
-        public int IdOrder { get; set; }        
+        [NotMapped]
+        public int IdOrder { get; set; }
+        [NotMapped]
         public bool IsActive { get; set; }
         public List<Order>  OwnedOrders{ get; set; }
+        [NotMapped]
         public List<Order> SellerOrders { get; set; }
+        [NotMapped]
         public List<Description> Comments { get; set; }
+        
 
         public void UpdateUser(string userName, string emailAddress, long docNumber)
         {

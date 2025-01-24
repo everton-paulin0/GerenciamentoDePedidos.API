@@ -20,11 +20,13 @@ namespace GerenciamentoDePedidos.Infrastruture.Persistence
                 .Entity<User>(e=>
                 {
                     e.HasKey(u => u.Id);
+                    /*
 
                     e.HasMany(u=> u.OwnedOrders)
                     .WithOne(u=> u.UserName)
                     .HasForeignKey(u=> u.IdUser)
                     .OnDelete(DeleteBehavior.Restrict);
+                    */
                 });
             builder
                 .Entity<Description>(e =>

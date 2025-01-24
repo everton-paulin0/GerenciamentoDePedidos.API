@@ -1,4 +1,5 @@
-﻿using System.Net.Sockets;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Net.Sockets;
 using GerenciamentoDePedidos.Core.Enum;
 
 namespace GerenciamentoDePedidos.Core.Entities
@@ -22,11 +23,11 @@ namespace GerenciamentoDePedidos.Core.Entities
         }
 
         public string Product { get; set; }
-        public int Quantity { get; set; }
+        public int Quantity { get; set; }        
         public int IdClient { get; set; }        
-        public User Client { get; set; }
-        public int IdUser { get; set; }
-        public User UserName { get; set; }
+        public User Client { get; set; }        
+        public int IdUser { get; set; }        
+        public User UserName { get; set; }        
         public double Price { get; set; }
         public double TotalCost { get; set; }        
         public OrderStatus Status { get; set; }

@@ -1,3 +1,4 @@
+using GerenciamentoDePedidos.Application;
 using GerenciamentoDePedidos.Infrastruture.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddDbContext<GerenciamentoDbContext>(o => o.UseInMemoryDatabase("GerenciadorDb"));
+
+builder.Services.AddApplication();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

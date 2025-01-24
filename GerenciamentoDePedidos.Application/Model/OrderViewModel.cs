@@ -14,7 +14,8 @@ namespace GerenciamentoDePedidos.Application.Model
             Price = price;
             TotalCost = totalCost;
 
-            Comments = comments.Select(c=> c.Content).ToList(); 
+            //Comments = comments.Select(c=> c.Content).ToList(); 
+            Comments = [];
 
 
         }

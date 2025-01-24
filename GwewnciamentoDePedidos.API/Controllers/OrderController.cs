@@ -1,4 +1,5 @@
 ﻿using GerenciamentoDePedidos.Application.Model;
+using GerenciamentoDePedidos.Application.Services.Interfaces;
 using GerenciamentoDePedidos.Core.Entities;
 using GerenciamentoDePedidos.Infrastruture.Persistence;
 using Microsoft.AspNetCore.Mvc;
@@ -11,62 +12,50 @@ namespace GerenciamentoDePedidos.API.Controllers
     public class OrderController : ControllerBase
     {        
         private readonly GerenciamentoDbContext _context;
-        public OrderController(GerenciamentoDbContext context)
+        private readonly IOrderService _service;
+        public OrderController(GerenciamentoDbContext context, IOrderService service)
         {
             _context = context;
+            _service = service;
         }
         [HttpPost]
         public IActionResult Post(CreateOrderInputModel model)
         {
-           var order = model.ToEntityOrder();
+            var result = _service.Insert(model);
 
-            _context.Orders.Add(order);
-            _context.SaveChanges();
-            
-            return Ok();
+            return CreatedAtAction(nameof(GetById), new { id = result.Data }, model);
         }
 
         [HttpGet]
         public IActionResult Get(string search = "")
         {
-            var orders = _context.Orders.Where(o => !o.IsDeleted && (search == "" || o.Product.Contains(search)))
-            .ToList();
+            var result = _service.GetAll();            
 
-            var model = orders.Select(OrderViewModel.FromEntityOrder).ToList();
-            
-
-            return Ok(model);
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var order = _context.Orders.SingleOrDefault(p => p.Id == id);
+            var result = _service.GetById(id);
 
-            if (order is null)
+            if (!result.IsSucess)
             {
-                return NotFound();
+                return BadRequest(result.Message);
             }
 
-            var model = OrderViewModel.FromEntityOrder(order);
-
-            return Ok(model);
+            return Ok(result);
         }
 
         [HttpPut("{id}")]
         public IActionResult Put(int id, UpdateorderInputModel model)
         {
-            var order = _context.Orders.SingleOrDefault(p => p.Id == id);
+            var result = _service.Update(model);
 
-            if (order is null)
+            if (!result.IsSucess)
             {
-                return NotFound();
+                return BadRequest(result.Message);
             }
-
-            order.Update(model.Product,model.Quantity, model.Price, model.TotalCost);
-
-            _context.Orders.Update(order);
-            _context.SaveChanges();
 
             return NoContent();
         }
@@ -74,16 +63,12 @@ namespace GerenciamentoDePedidos.API.Controllers
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            var order = _context.Orders.SingleOrDefault(p => p.Id == id);
+            var result = _service.Delete(id);
 
-            if (order is null)
+            if (!result.IsSucess)
             {
-                return NotFound();
+                return BadRequest(result.Message);
             }
-
-            order.SetAsDeleted();
-            _context.Orders.Update(order);
-            _context.SaveChanges(); 
 
             return NoContent();
         }
@@ -91,19 +76,14 @@ namespace GerenciamentoDePedidos.API.Controllers
         [HttpPost("{id}/description")]
         public IActionResult PostDescription (int id, CreateDescriptionInputModel model)
         {
-            var order = _context.Orders.SingleOrDefault(p => p.Id == id);
+            var result = _service.InsertDescription(id, model);
 
-            if (order is null)
+            if (!result.IsSucess)
             {
-                return NotFound();
-            }
+                return BadRequest(result.Message);
+            }           
 
-            var comment = new Description(model.Content, model.IdOrder, model.IdUser);
-
-            _context.Descriptions.Add(comment);
-            _context.SaveChanges();
-
-            return Ok();
+            return NoContent();
         }
     }
 }

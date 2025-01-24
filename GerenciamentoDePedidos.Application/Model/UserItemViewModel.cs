@@ -19,7 +19,7 @@ namespace GerenciamentoDePedidos.Application.Model
         public string EmailAddress { get; set; }
         public long DocNumber { get; set; }
 
-        public static UserItemViewModel FromEntityOrder(User user)
+        public static UserItemViewModel FromEntityUser(User user)
             => new UserItemViewModel(user.Id, user.UserName, user.EmailAddress, user.DocNumber);
     }
 

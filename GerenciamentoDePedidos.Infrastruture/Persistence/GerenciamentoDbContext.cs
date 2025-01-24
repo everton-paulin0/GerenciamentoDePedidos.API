@@ -47,12 +47,13 @@ namespace GerenciamentoDePedidos.Infrastruture.Persistence
                     .WithMany(o => o.OwnedOrders)
                      .HasForeignKey(o => o.IdClient)
                      .OnDelete(DeleteBehavior.Restrict);
-                    */
+                    
 
                     e.HasOne(o => o.UserName)
                     .WithMany(o => o.SellerOrders)
                     .HasForeignKey(o => o.IdUser)
                     .OnDelete(DeleteBehavior.Restrict);
+                    */
                 });
 
             base.OnModelCreating(builder);

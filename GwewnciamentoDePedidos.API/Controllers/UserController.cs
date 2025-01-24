@@ -1,4 +1,5 @@
 ﻿using GerenciamentoDePedidos.Application.Model;
+using GerenciamentoDePedidos.Application.Services.Interfaces;
 using GerenciamentoDePedidos.Infrastruture.Persistence;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,63 +10,51 @@ namespace GerenciamentoDePedidos.Application.Controllers
     public class UserController : ControllerBase
     {
         private readonly GerenciamentoDbContext _context;
-        public UserController(GerenciamentoDbContext context)
+        private readonly IUserService _service;
+        public UserController(GerenciamentoDbContext context, IUserService service)
         {
             _context = context;
+            _service = service;
         }
 
         [HttpPost]
         public IActionResult Post(CreateUserInputModel model)
         {
-            var user = model.ToEntityUser();
+            var result = _service.Insert(model);
 
-            _context.Users.Add(user);
-            _context.SaveChanges();
-
-            return Ok();
+            return CreatedAtAction(nameof(GetById), new { id = result.Data }, model);
         }
 
         [HttpGet]
         public IActionResult Get(string search = "")
         {
-            var users = _context.Users.Where(o => !o.IsDeleted && (search == "" || o.UserName.Contains(search)))
-                .ToList();
+            var result = _service.GetAll();
 
-            var model = users.Select(UserViewModel.FromEntityUser).ToList();
-
-
-            return Ok(model);
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var user = _context.Users.SingleOrDefault(u => u.Id == id);
+            var result = _service.GetById(id);
 
-            if (user is null)
+            if (!result.IsSucess)
             {
-                return NotFound();
+                return BadRequest(result.Message);
             }
 
-            var model = UserViewModel.FromEntityUser(user);
-
-            return Ok(model);
+            return Ok(result);
         }
 
         [HttpPut]
         public IActionResult Put(int id, UpdateUserInputModel model)
         {
-            var user = _context.Users.SingleOrDefault(p => p.Id == id);
+            var result = _service.Update(model);
 
-            if (user is null)
+            if (!result.IsSucess)
             {
-                return NotFound();
+                return BadRequest(result.Message);
             }
-
-            user.UpdateUser(model.UserName, model.EmailAddress, model.DocNumber);
-
-            _context.Users.Update(user);
-            _context.SaveChanges();
 
             return NoContent();
         }
@@ -73,16 +62,12 @@ namespace GerenciamentoDePedidos.Application.Controllers
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            var user = _context.Users.SingleOrDefault(p => p.Id == id);
+            var result = _service.Delete(id);
 
-            if (user is null)
+            if (!result.IsSucess)
             {
-                return NotFound();
+                return BadRequest(result.Message);
             }
-
-            user.SetAsDeleted();
-            _context.Users.Update(user);
-            _context.SaveChanges();
 
             return NoContent();
         }

@@ -3,10 +3,10 @@
     public enum OrderStatus
     {
         Started = 0,
-        Canceled = 1,
+        Cancelled = 1,
         Fronzen = 2,
         Finished = 3,
-        PaymentePending = 4
+        PaymentPending = 4
 
     }
 }

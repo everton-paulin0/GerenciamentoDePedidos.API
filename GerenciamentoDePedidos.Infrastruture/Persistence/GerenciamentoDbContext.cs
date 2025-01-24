@@ -31,10 +31,7 @@ namespace GerenciamentoDePedidos.Infrastruture.Persistence
                 {
                     e.HasKey(d => d.Id);
 
-                    e.HasOne(d => d.Order)
-                    .WithMany(d => d.Comments)
-                    .HasForeignKey(d => d.IdOrder)
-                    .OnDelete(DeleteBehavior.Restrict);
+                   
 
                 });
             builder
@@ -42,18 +39,8 @@ namespace GerenciamentoDePedidos.Infrastruture.Persistence
                 {
                     e.HasKey(o => o.Id);
 
-                    /*
-                    e.HasOne(o => o.Client)
-                    .WithMany(o => o.OwnedOrders)
-                     .HasForeignKey(o => o.IdClient)
-                     .OnDelete(DeleteBehavior.Restrict);
-                    
 
-                    e.HasOne(o => o.UserName)
-                    .WithMany(o => o.SellerOrders)
-                    .HasForeignKey(o => o.IdUser)
-                    .OnDelete(DeleteBehavior.Restrict);
-                    */
+                    
                 });
 
             base.OnModelCreating(builder);

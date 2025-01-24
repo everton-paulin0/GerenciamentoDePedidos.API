@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GerenciamentoDePedidos.Application.Model;
+﻿using GerenciamentoDePedidos.Application.Model;
 using GerenciamentoDePedidos.Application.Services.Interfaces;
-using GerenciamentoDePedidos.Core.Entities;
 using GerenciamentoDePedidos.Infrastruture.Persistence;
 
 namespace GerenciamentoDePedidos.Application.Services
 {
-    internal class UserService : IUserService
+   public class UserService : IUserService
     {
         private readonly GerenciamentoDbContext _context;
         public UserService(GerenciamentoDbContext context)

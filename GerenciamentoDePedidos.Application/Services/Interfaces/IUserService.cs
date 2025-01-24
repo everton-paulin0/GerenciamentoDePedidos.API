@@ -9,6 +9,7 @@ namespace GerenciamentoDePedidos.Application.Services.Interfaces
 {
     public interface IUserService
     {
+        
         ResultViewModel<List<UserItemViewModel>> GetAll(string Search = "");
         ResultViewModel<UserViewModel> GetById(int id);
         ResultViewModel<int> Insert(CreateUserInputModel model);

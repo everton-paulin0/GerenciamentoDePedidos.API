@@ -5,7 +5,7 @@ using GerenciamentoDePedidos.Infrastruture.Persistence;
 
 namespace GerenciamentoDePedidos.Application.Services
 {
-    internal class OrderService : IOrderService
+    public class OrderService : IOrderService
     {
         private readonly GerenciamentoDbContext _context;
         public OrderService(GerenciamentoDbContext context)
@@ -83,7 +83,6 @@ namespace GerenciamentoDePedidos.Application.Services
 
         public ResultViewModel Update(UpdateorderInputModel model)
         {
-
             var order = _context.Orders.SingleOrDefault(p => p.Id == model.IdOrder);
 
             if (order is null)

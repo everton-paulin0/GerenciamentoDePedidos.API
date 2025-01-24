@@ -15,14 +15,4 @@
     <ProjectReference Include="..\GerenciamentoDePedidos.Infrastruture\GerenciamentoDePedidos.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Commands\CompleteOrder\" />
-    <Folder Include="Commands\DeleteOrder\" />
-    <Folder Include="Commands\InsertComment\" />
-    <Folder Include="Commands\InsertOrder\" />
-    <Folder Include="Commands\UpdateOrder\" />
-    <Folder Include="Queries\GetAllOrders\" />
-    <Folder Include="Queries\GetOrderById\" />
-  </ItemGroup>
-
 </Project>

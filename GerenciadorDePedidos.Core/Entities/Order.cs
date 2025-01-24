@@ -40,5 +40,34 @@ namespace GerenciamentoDePedidos.Core.Entities
             TotalCost = totalCost;            
             UpdatedAt = DateTime.Now;
         }
+
+        public void Complete()
+        {
+            if (Status != OrderStatus.PaymentPending && Status!= OrderStatus.Fronzen && Status!=OrderStatus.Cancelled)
+            {
+                Status = OrderStatus.Finished;
+                UpdatedAt = DateTime.Now;
+            }
+        }
+
+        public void Cancel()
+        {
+            if (Status == OrderStatus.Started || Status == OrderStatus.Fronzen)
+            {
+                Status = OrderStatus.Cancelled;
+                UpdatedAt = DateTime.Now;
+            }
+        }
+
+                
+
+        public void SetPaymentPending()
+        {
+            if (Status == OrderStatus.Started && Status != OrderStatus.Finished)
+            {
+                Status = OrderStatus.PaymentPending;
+                UpdatedAt = DateTime.Now;
+            }
+        }
     }
 }
